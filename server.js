@@ -19,7 +19,7 @@ mongoose
     .then(()=> console.log('MongoDB connected'))
     .catch(err=> console.log(err))
 
-app.get('/',(req,res)=> res.send('Hello world'));
+app.get('/',(req,res)=> res.send('My Goodness backend'));
 
 //Use Routes
 app.use('/api/users',users);
