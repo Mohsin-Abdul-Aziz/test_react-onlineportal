@@ -1,11 +1,14 @@
 const express= require('express');
 const mongoose=require('mongoose');
-
+const BodyParser=require('body-parser');
+const path=require('path');
 const users= require('./routes/api/users');
-const profile= require('./routes/api/profile');
-const posts= require('./routes/api/posts');
 
 const app=express();
+
+//Body Parder Middleware
+app.use(BodyParser.urlencoded({extended:false}));
+app.use(BodyParser.json());
 
 //DB config
 const db= require('./config/key').mongoURL;
@@ -20,11 +23,18 @@ app.get('/',(req,res)=> res.send('Hello world'));
 
 //Use Routes
 app.use('/api/users',users);
-app.use('/api/profile',profile);
-app.use('/api/posts',posts);
 
 
 
-const port= process.env.PORT || 5000;
+const port= process.env.PORT || 5000; //Step 1 for production
+
+//Step 3
+if (process.env.NODE_ENV === 'production'){
+    app.use(express.static ('client/build'));
+
+    app.get('*',(req,res)=>{
+        res.sendFile(path.join(__dirname,'client','build','index.html'));
+    })
+}
 
 app.listen(port, ()=> console.log(`Server is running on port ${port}`))
