@@ -19,7 +19,7 @@ mongoose
     .then(()=> console.log('MongoDB connected'))
     .catch(err=> console.log(err))
 
-app.get('/',(req,res)=> res.send('My Goodness backend'));
+app.get('/',(req,res)=> res.send('My backend'));
 
 //Use Routes
 app.use('/api/users',users);
@@ -30,7 +30,7 @@ const port= process.env.PORT || 5000; //Step 1 for production
 
 //Step 3
 if (process.env.NODE_ENV === 'production'){
-    app.use(express.static ('./client/build'));
+    app.use(express.static ('../client/build'));
 
     app.get('*',(req,res)=>{
         res.sendFile(path.join(__dirname,'client','build','index.html'));
