@@ -1,9 +1,10 @@
 import './App.css';
-
+import Landing from './components/layout/frontpage'
 function App() {
   return (
     <div className="App">
-    <h1>Hello jee mohsin</h1>
+      <Landing />
+    <h1>My react app</h1>
     </div>
   );
 }
