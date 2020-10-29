@@ -10,9 +10,10 @@
     "client":"npm start --prefix client",
     "dev":"concurrently \"npm run server\" \"npm run client\"",
     "heroku-postbuild": "cd client && npm install --only=dev && npm install && npm run build"
-
-
   },
+  "engines": {
+    "node": "12.8.0"
+},
   "author": "Mohsin",
   "license": "ISC",
   "dependencies": {
