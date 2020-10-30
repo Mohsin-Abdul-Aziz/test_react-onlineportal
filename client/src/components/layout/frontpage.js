@@ -1,36 +1,9 @@
 import react, { Component } from 'react';
-
+import {Link} from 'react-router-dom';
 class Landing extends Component{
 render(){
     return(
-        <div>
-         <nav className="navbar navbar-expand-sm navbar-dark bg-dark mb-4">
-    <div className="container">
-      <a className="navbar-brand" href="landing.html">DevConnector</a>
-      <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#mobile-nav">
-        <span className="navbar-toggler-icon"></span>
-      </button>
-
-      <div className="collapse navbar-collapse" id="mobile-nav">
-        <ul className="navbar-nav mr-auto">
-          <li className="nav-item">
-            <a className="nav-link" href="profiles.html"> Developers
-            </a>
-          </li>
-        </ul>
-
-        <ul className="navbar-nav ml-auto">
-          <li className="nav-item">
-            <a className="nav-link" href="register.html">Sign Up</a>
-          </li>
-          <li className="nav-item">
-            <a className="nav-link" href="login.html">Login</a>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </nav>
-
+<div>
   <div className="landing">
     <div className="dark-overlay landing-inner text-light">
       <div className="container">
@@ -40,15 +13,14 @@ render(){
             </h1>
             <p className="lead"> Create a developer profile/portfolio, share posts and get help from other developers</p>
             <hr />
-            <a href="register.html" className="btn btn-lg btn-info mr-2">Sign Up</a>
-            <a href="login.html" className="btn btn-lg btn-light">Login</a>
+            <Link to="signup" className="btn btn-lg btn-info mr-2">Sign Up</Link>
+            <Link to="login" className="btn btn-lg btn-light">Login</Link>
           </div>
         </div>
       </div>
     </div>
   </div>
-
-        </div>
+</div>
     )
 }
 };
