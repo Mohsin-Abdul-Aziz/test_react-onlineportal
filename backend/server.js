@@ -19,7 +19,7 @@ mongoose
     .then(()=> console.log('MongoDB connected'))
     .catch(err=> console.log(err))
 
-app.get('/',(req,res)=> res.send('IZ GOOD'));
+app.get('/',(req,res)=> res.send('HELLOS'));
 
 //Use Routes
 app.use('/api/users',users);
@@ -35,17 +35,11 @@ const port= process.env.PORT || 5000; //Step 1 for production
 
 
     if (process.env.NODE_ENV === 'production'){
-    // Serve static files from the React frontend app
-    app.use(express.static(path.join(__dirname, '../client/build')))
+       app.use(express.static ('../client/build'));
 
-    //    app.use(express.static ('client/build'));
-
-    app.get('*', (req, res) => {
-        res.sendFile(path.join(__dirname + '/../client/build/index.html'))
-      })
-//     app.get('*',(req,res)=>{
-//         res.sendFile(path.join(__dirname,'client','build','index.html'));
-//     })
+    app.get('*',(req,res)=>{
+        res.sendFile(path.join(__dirname,'../client','build','index.html'));
+    })
  }
 
 app.listen(port, ()=> console.log(`Server is running on port ${port}`))
