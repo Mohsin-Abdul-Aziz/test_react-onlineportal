@@ -11,7 +11,7 @@ function App() {
     <Router>
     <div className="App">
       <Header />
-      <Route exact path ="." component={Landing} />
+      <Route exact path ="/" component={Landing} />
       <div class="container">
         <Route exact path='/Signup' component={Signup} />
         <Route exact path='/login' component={Login} />
