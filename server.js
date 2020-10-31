@@ -19,7 +19,7 @@ mongoose
     .then(()=> console.log('MongoDB connected'))
     .catch(err=> console.log(err))
 
-app.get('/',(req,res)=> res.send('Lets do this'));
+app.get('/',(req,res)=> res.send('THis time'));
 
 //Use Routes
 app.use('/api/users',users);
@@ -30,14 +30,8 @@ const port= process.env.PORT || 5000; //Step 1 for production
 
 //Step 3
 
-
-// AFTER defining routes: Anything that doesn't match what's above, send back index.html; (the beginning slash ('/') in the string is important!)
-
-
     if (process.env.NODE_ENV === 'production'){
-       app.use('/static', express.static(path.join(__dirname, 'client/build')));
-
-       //app.use(express.static ('client/build'));
+          app.use(express.static ('client/build'));
 
     app.get('*',(req,res)=>{
         res.sendFile(path.join(__dirname,'client','build','index.html'));
