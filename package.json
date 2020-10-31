@@ -4,8 +4,12 @@
   "description": "online portal",
   "main": "server.js",
   "scripts": {
-    "heroku-postbuild": "cd client && npm install && npm run build",
-    "start": "node server.js"
+    "client-install":"npm install --prefix client",
+    "start": "node server.js",
+    "server":"nodemon server.js",
+    "client":"npm start --prefix client",
+    "dev":"concurrently \"npm run server\" \"npm run client\"",
+    "heroku-postbuild": "cd client && npm install --only=dev && npm install && npm run build"
     },
   "engines": {
     "node": "12.8.0"
