@@ -11,8 +11,8 @@ const password=require('passport');
 const User=require('../../models/User');
 
 //Load Input validations
-// const validateRegisterInput=require('../../validation/register');
-// const validateLoginInput=require('../../validation/login');
+const validateRegisterInput=require('../../validation/register');
+const validateLoginInput=require('../../validation/login');
 
 
 //@route GET api/users/getusers
@@ -39,13 +39,13 @@ router.get('/current',password.authenticate('jwt',{session:false}),(req,res)=>{
 //@access Public
 router.post('/register',(req,res)=>{
 
- // const {errors,isValid} =validateRegisterInput(req.body);
+  const {errors,isValid} =validateRegisterInput(req.body);
   
     
   // Check Validation
-  // if(!isValid){
-  //     return res.status(400).json(errors);
-  // }
+  if(!isValid){
+      return res.status(400).json(errors);
+  }
 
     User.findOne({ email:req.body.email})
         .then(user=>{
@@ -145,12 +145,12 @@ User.findOne({email:req.body.profileObj.email})
 
 router.post('/login',(req,res)=>{
 
-  //const {errors,isValid} =validateLoginInput(req.body);
+  const {errors,isValid} =validateLoginInput(req.body);
 
   // Check Validation
-    // if(!isValid){
-    //     return res.status(400).json(errors);
-    // }
+    if(!isValid){
+        return res.status(400).json(errors);
+    }
     const email=req.body.email;
     const password=req.body.password;
 
@@ -184,7 +184,7 @@ router.post('/login',(req,res)=>{
                     else{
                         errors.password='Password incorrect'
                         //return res.status(400).json({errors:"Password incorrect"});
-                        return res.status(400).json(errors);
+                              return res.status(400).json(errors);
 
                     }
                 })

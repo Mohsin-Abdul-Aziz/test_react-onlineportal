@@ -23,7 +23,7 @@ render(){
             <hr />
             <Link to="signup" className="btn btn-lg btn-info mr-3">Sign Up</Link>
             <Link to="login" className="btn btn-lg btn-light mr-3">Login</Link>
-            <Link to="loginwithsignup" className="btn btn-lg btn-info">Google Login</Link>
+            <Link to="loginwithsignup" className="btn btn-lg btn-info">GoogleLogin</Link>
             
           </div>
         </div>
