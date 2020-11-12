@@ -1,5 +1,10 @@
 import { Component } from 'react';
-import axios from 'axios';
+import PropTypes from 'prop-types'
+import {connect} from 'react-redux';
+import {registeruser} from '../../actions/authActions';
+import {withRouter} from 'react-router-dom';
+import classnames from 'classnames';
+
 class Signup extends Component{
   constructor(){
     super();
@@ -10,11 +15,30 @@ class Signup extends Component{
       password2:'',
       errors:{}
     }
+    
     this.onChange=this.onChange.bind(this)
     this.submitform=this.submitform.bind(this);
   }
   onChange(e){
     this.setState({[e.target.name]:e.target.value})
+  }
+  // componentWillReceiveProps(newProps){
+  //   if(newProps.errors){
+  //     this.setState({errors:newProps.errors})
+  //   }
+  // }
+  static getDerivedStateFromProps(props, state) {
+    if (props.errors !== state.errors) {
+      return {
+        errors: props.errors      };
+    }
+    // Return null to indicate no change to state.
+    return null;
+  }
+  componentDidMount(props){
+    if(this.props.auth.isAuthenicated){
+      this.props.history.push('/dashboard')
+    }
   }
   submitform(e){
     e.preventDefault()
@@ -23,62 +47,87 @@ class Signup extends Component{
       name:this.state.name,
       email:this.state.email,
       password:this.state.password,
-    //  password2:this.state.password2
+      password2:this.state.password2
     }
     console.log(newUser)
-  
-  axios.post('/api/users//register',newUser)
-    .then(res=>console.log(res.data))
-    .catch(err=>console.log(err))
+    this.props.registeruser(newUser,this.props.history);
+
   }
 render(){
+ const {errors}=this.state;
+
+  const {user} =this.props.auth;
+  
     return(
   <div className="register">
+    {user? user.name:null}
     <div className="container">
       <div className="row">
         <div className="col-md-8 m-auto">
           <h1 className="display-4 text-center">Sign Up</h1>
           <p className="lead text-center">Create your DevConnector account</p>
           <form onSubmit={this.submitform}>
-            <div className="form-group">
-              <input
-               type="text"
-               className="form-control form-control-lg" 
-               placeholder="Name" 
-               name="name"
-               value={this.state.name} 
-               onChange={this.onChange}
-               required />
+          <div className="form-group">
+              <input type="name" 
+              className={classnames('form-control form-control-lg',{
+                'is-invalid':errors.name})} 
+              placeholder="Please Enter Name" name="name"
+              value={this.state.name}
+              onChange={this.onChange}
+               />
+               {errors.name && (
+               <div className="invalid-feedback">
+                 {errors.name}
+               </div>
+                 )}
             </div>
             <div className="form-group">
               <input 
               type="email" 
-              className="form-control form-control-lg" 
+              className={classnames('form-control form-control-lg',{
+                'is-invalid':errors.email})}  
               placeholder="Email Address" 
               name="email"
               value={this.state.email}
               onChange={this.onChange} />
+              {errors.email && (
+               <div className="invalid-feedback">
+                 {errors.email}
+               </div>
+                 )}
               <small className="form-text text-muted">This site uses Gravatar so if you want a profile image, use a Gravatar email</small>
             </div>
             <div className="form-group">
               <input 
               type="password" 
-              className="form-control form-control-lg" 
+              className={classnames('form-control form-control-lg',{
+                'is-invalid':errors.password})}  
               placeholder="Password" 
               name="password" 
               value={this.state.password}
               onChange={this.onChange}
               />
+              {errors.password && (
+               <div className="invalid-feedback">
+                 {errors.password}
+               </div>
+                 )}
             </div>
             <div className="form-group">
               <input 
               type="password" 
-              className="form-control form-control-lg" 
+              className={classnames('form-control form-control-lg',{
+                'is-invalid':errors.password2})} 
               placeholder="Confirm Password" 
               name="password2" 
               value={this.state.password2}
               onChange={this.onChange}
               />
+              {errors.password2 && (
+               <div className="invalid-feedback">
+                 {errors.password2}
+               </div>
+                 )}
             </div>
             <input type="submit" className="btn btn-info btn-block mt-4" />
           </form>
@@ -87,4 +136,13 @@ render(){
     </div>
   </div>
     )}};
-export default Signup;
+    registeruser.prototype={
+      registeruser:PropTypes.func.isRequired,
+      auth:PropTypes.object.isRequired,
+      errors:PropTypes.object.isRequired
+    }
+    const mapStateToProps=(state)=>({
+      auth:state.auth,
+      errors:state.errors
+    })
+export default connect(mapStateToProps, {registeruser})(withRouter(Signup));

@@ -2,11 +2,12 @@ const express= require('express');
 const mongoose=require('mongoose');
 const BodyParser=require('body-parser');
 const path=require('path');
+const passport=require('passport');
 const users= require('./routes/api/users');
 
 const app=express();
 
-//Body Parder Middleware
+//Body Parder Middleware 
 app.use(BodyParser.urlencoded({extended:false}));
 app.use(BodyParser.json());
 
@@ -19,7 +20,9 @@ mongoose
     .then(()=> console.log('MongoDB connected'))
     .catch(err=> console.log(err))
 
-//app.get('/',(req,res)=> res.send('woman'));
+//Passport Config
+
+require('./config/passport')(passport)
 
 //Use Routes
 app.use('/api/users',users);

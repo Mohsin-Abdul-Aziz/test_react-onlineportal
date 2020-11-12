@@ -1,4 +1,6 @@
 module.exports={
     mongoURL: process.env.MONGODB_URI||'mongodb://mohsin:19Cocomo96@ds035310.mlab.com:35310/onlineportal'
-    //Step 2
+    //Step 
+    ,
+    secretOrKey:'secret'
 };
