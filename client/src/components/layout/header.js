@@ -31,7 +31,7 @@ class Header extends Component{
   const guestslinks=(
     <ul className="navbar-nav ml-auto">
     <li className="nav-item">
-      <Link className="nav-link" to="signup">Sign Up</Link>
+      <Link className="nav-link" to="signup">Sign Upp</Link>
     </li>
     <li className="nav-item">
       <Link className="nav-link" to="login">Login</Link>

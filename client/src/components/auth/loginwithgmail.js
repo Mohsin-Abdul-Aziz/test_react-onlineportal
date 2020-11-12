@@ -8,7 +8,7 @@ class Loginwithgmail extends Component {
     constructor() {
         super();
         this.state = {
-            client: '561730509621-c6k6mseje8j3h7fhuiq44qc592armpc2.apps.googleusercontent.com',
+            client: '561730509621-f3e56i7rccnb5hb5bennd8gnrurjd54p.apps.googleusercontent.com',
             cookie: 'single_host_origin'
         }
         this.responseGoogle = this.responseGoogle.bind(this);
