@@ -66,8 +66,8 @@ return(
         onFailure={this.responseGoogle}
         cookiePolicy={this.state.cookie}
         />
-         <input type="file" name="file" onChange={this.onChangeHandler}/>
-         <button type="button" className="btn btn-success btn-block" onClick={this.onClickHandler}>Upload</button> 
+         {/* <input type="file" name="file" onChange={this.onChangeHandler}/>
+         <button type="button" className="btn btn-success btn-block" onClick={this.onClickHandler}>Upload</button>  */}
 
     </div>
 </div>
