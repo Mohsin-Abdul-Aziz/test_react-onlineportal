@@ -4,12 +4,20 @@ const BodyParser=require('body-parser');
 const path=require('path');
 const passport=require('passport');
 const users= require('./routes/api/users');
+const profile= require('./routes/api/profile');
+
+const multer = require('multer');
 
 const app=express();
 
 //Body Parder Middleware 
 app.use(BodyParser.urlencoded({extended:false}));
 app.use(BodyParser.json());
+
+//For file uploading 
+app.use(express.static(__dirname + '/public'));
+
+
 
 //DB config
 const db= require('./config/key').mongoURL;
@@ -26,7 +34,7 @@ require('./config/passport')(passport)
 
 //Use Routes
 app.use('/api/users',users);
-
+app.use('/api/profile',profile)
 
 
 const port= process.env.PORT || 5000; //Step 1 for production

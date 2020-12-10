@@ -5,6 +5,7 @@ const bcrypt=require('bcryptjs');
 const keys=require('../../config/key');
 const jwt=require('jsonwebtoken');
 const password=require('passport');
+const multer = require('multer');
 
 //Load User Model
 
@@ -26,6 +27,38 @@ router.get('/getusers',(req,res)=>{
      .catch(err=>res.status(404).json({nousersfound:'No Users'}));
 });
 
+var filedata;
+//Define where project photos will be stored
+var storage = multer.diskStorage({
+  destination: function (request, file, callback) {
+    //callback(null, './public/uploads');
+    callback(null,'./client/public/publicimages')
+  },
+  filename: function (request, file, callback) {
+    //console.log(file);
+    filedata=file;
+    callback(null, file.originalname)
+  }
+});
+
+// Function to upload project images
+var upload = multer({storage: storage}).any('uploadedImages');
+
+// add new photos to the DB
+router.post('/projects', function(req, res){
+  upload(req, res, function(err){
+    if(err){
+      console.log(err);
+      return;
+    }
+    console.log(filedata)
+    console.log(req.files);
+   // res.end('Your files uploaded.');
+    console.log('Yep yep!');
+    res.send(req.files)
+  });
+});
+
 //@route     GET api/users/current
 //@desc      Return current user
 //@access    private
@@ -34,6 +67,10 @@ router.get('/current',password.authenticate('jwt',{session:false}),(req,res)=>{
     res.json(req.user);
 });
 
+router.get('/profile',(req,res)=>{
+  
+  return  res.json({});
+});
 //@route Post api/users/reqister
 //@desc Tests users route
 //@access Public

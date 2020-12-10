@@ -3,9 +3,12 @@ import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {logoutUser} from '../../actions/authActions';
+import {clearCurrentProfile} from '../../actions/profileActions';
+
 class Header extends Component{
   onLogoutClick(e){
     e.preventDefault();
+    this.props.clearCurrentProfile();
     this.props.logoutUser();
   }
   render(){
@@ -49,7 +52,7 @@ class Header extends Component{
       <div className="collapse navbar-collapse" id="mobile-nav">
         <ul className="navbar-nav mr-auto">
           <li className="nav-item">
-            <Link className="nav-link" to="profiles"> Developers
+            <Link className="nav-link" to="profile"> Profiles
             </Link>
           </li>
         </ul>
@@ -67,4 +70,4 @@ Header.propTypes={
 const mapStateToProps=state=>({
   auth:state.auth
 })
-export default connect(mapStateToProps, {logoutUser})(Header);
+export default connect(mapStateToProps, {logoutUser,clearCurrentProfile})(Header);
